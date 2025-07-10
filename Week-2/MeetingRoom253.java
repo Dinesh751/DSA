@@ -51,70 +51,7 @@ public class MeetingRoom253 {
         System.out.println("Expected: 2");
         System.out.println();
         
-        // FAILING TEST CASES - Your algorithm will give wrong answers
-        
-        // Test Case 4 - Multiple overlaps at same time
-        int[][] intervals4 = {{1,5}, {2,6}, {3,7}, {4,8}};
-        System.out.println("Test Case 4 (FAILS):");
-        System.out.println("Input: " + Arrays.deepToString(intervals4));
-        System.out.println("Your Output: " + solution.minMeetingRooms(intervals4));
-        System.out.println("Expected: 4 (all meetings overlap)");
-        System.out.println("Your algorithm gives wrong answer!");
-        System.out.println();
-        
-        // Test Case 5 - Complex overlapping pattern
-        int[][] intervals5 = {{0,30}, {5,10}, {15,20}, {25,35}};
-        System.out.println("Test Case 5 (FAILS):");
-        System.out.println("Input: " + Arrays.deepToString(intervals5));
-        System.out.println("Your Output: " + solution.minMeetingRooms(intervals5));
-        System.out.println("Expected: 2");
-        System.out.println("Your algorithm might give wrong answer due to sorting by end time!");
-        System.out.println();
-        
-        // Test Case 6 - Three meetings all overlapping
-        int[][] intervals6 = {{1,10}, {5,15}, {8,20}};
-        System.out.println("Test Case 6 (FAILS):");
-        System.out.println("Input: " + Arrays.deepToString(intervals6));
-        System.out.println("Your Output: " + solution.minMeetingRooms(intervals6));
-        System.out.println("Expected: 3 (all three overlap at time 8-10)");
-        System.out.println("Your algorithm gives wrong answer!");
-        System.out.println();
-        
-        // Test Case 7 - Wrong sorting demonstrates the issue
-        int[][] intervals7 = {{13,15}, {1,13}, {6,9}};
-        System.out.println("Test Case 7 (FAILS):");
-        System.out.println("Input: " + Arrays.deepToString(intervals7));
-        System.out.println("Your Output: " + solution.minMeetingRooms(intervals7));
-        System.out.println("Expected: 2");
-        System.out.println("Sorting by end time instead of start time causes issues!");
-        System.out.println();
-        
-        // Test Case 8 - Single room reused multiple times
-        int[][] intervals8 = {{1,2}, {3,4}, {5,6}, {7,8}};
-        System.out.println("Test Case 8 (Should work):");
-        System.out.println("Input: " + Arrays.deepToString(intervals8));
-        System.out.println("Your Output: " + solution.minMeetingRooms(intervals8));
-        System.out.println("Expected: 1");
-        System.out.println("This should work with your algorithm");
-        System.out.println();
-        
-        // Test Case 9 - Overlapping chain (should need 3 rooms)
-        int[][] intervals9 = {{0,30},{5,10}, {15,20}};
-        System.out.println("Test Case 9 (FAILS):");
-        System.out.println("Input: " + Arrays.deepToString(intervals9));
-        System.out.println("Your Output: " + solution.minMeetingRooms(intervals9));
-        System.out.println("Expected: 3 (at time 3, three meetings overlap: [1,3], [2,4], [3,5])");
-        System.out.println("Your algorithm gives wrong answer!");
-        System.out.println();
 
-        
-        int[][] intervals10 = {{1,10}, {8,9}, {3,8}, {4,7}};
-        System.out.println("Test Case 10 (FAILS):");
-        System.out.println("Input: " + Arrays.deepToString(intervals10));
-        System.out.println("Your Output: " + solution.minMeetingRooms(intervals10));
-        System.out.println("Expected: 4 (all meetings overlap at some point)");
-        System.out.println("Your algorithm gives wrong answer!");
-        System.out.println();
     }
     
     /**
@@ -123,22 +60,21 @@ public class MeetingRoom253 {
      * @return minimum number of conference rooms needed
      */
     public int minMeetingRooms(int[][] intervals) {
-        Arrays.sort(intervals, (a, b) -> a[1] - b[1]);
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
 
-        int [] current = intervals[0];
-        int overlaps = 0;
+        PriorityQueue<Integer> q = new PriorityQueue<>();
 
+        q.add(intervals[0][1]);
         for(int i=1; i<intervals.length; i++){
-            int next[] = intervals[i];
-
-            if(current[1] > next[0]){
-                 overlaps++;
-            }else{
-                current = next;
-            }
-        }
-        
-        return  overlaps+1; // Replace with your solution
+            int current[] = intervals[i];
+              if(current[0] >= q.peek()){
+                q.poll();
+              }
+                q.add(current[1]);
+              
+             
+        }   
+        return q.size();   
     }
     
     /**
