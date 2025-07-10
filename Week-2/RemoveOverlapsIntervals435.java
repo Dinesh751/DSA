@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class RemoveOverlapsIntervals {
+public class RemoveOverlapsIntervals435 {
     public static void main(String[] args) {
         // Print hello message
         System.out.println("Hello Java!");
