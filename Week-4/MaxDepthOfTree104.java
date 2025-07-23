@@ -11,27 +11,35 @@ class TreeNode {
     }
 }
 
-public class DiameterOfBinaryTree543 {
-    private int maxDiameter = 0;
-//   The diameter (also called the width or the longest path) of a binary tree is the length of the longest path between any two nodes, where length is measured in number of edges, not nodes.
+public class MaxDepthOfTree104 {
+    /*
+    Problem Statement:
+    Given the root of a binary tree, return its maximum depth.
 
-// height -> no.of max edges from that node to leaf node
-    public int diameterOfBinaryTree(TreeNode root) {
-        heightOfTree(root);
-        return maxDiameter;
-    }
+    A binary tree's maximum depth is the number of nodes along the longest path 
+    from the root node down to the farthest leaf node.
 
-    private int heightOfTree(TreeNode root) {
-        if (root == null) return 0;
+    Example 1:
+    Input: root = [3,9,20,null,null,15,7]
+    Output: 3
 
-        int leftHeight = heightOfTree(root.left);
-        int rightHeight = heightOfTree(root.right);
+    Example 2:
+    Input: root = [1,null,2]
+    Output: 2
 
-        // Update the maximum diameter
-        maxDiameter = Math.max(maxDiameter, leftHeight + rightHeight);
+    Constraints:
+    - The number of nodes in the tree is in the range [0, 10^4].
+    - -100 <= Node.val <= 100
+    */
+// maxDepth -> max nodes from root last leaf.
+    public int maxDepth(TreeNode root) {
+         if(root == null) return 0;
 
-        // Return the height of the current node
-        return Math.max(leftHeight, rightHeight) + 1;
+         int left = maxDepth(root.left);
+         int right = maxDepth(root.right);
+
+         return Math.max(left, right) + 1;
+        
     }
 
     // Helper method to build a binary tree from an array
@@ -63,30 +71,27 @@ public class DiameterOfBinaryTree543 {
     }
 
     public static void main(String[] args) {
-        DiameterOfBinaryTree543 solution = new DiameterOfBinaryTree543();
+        MaxDepthOfTree104 solution = new MaxDepthOfTree104();
 
         // Test case 1
-        solution.maxDiameter = 0;
-        Integer[] arr1 = {1, 2, 3, 4, 5};
+        Integer[] arr1 = {3, 9, 20, null, null, 15, 7};
         TreeNode root1 = buildTree(arr1);
         int expected1 = 3;
-        int actual1 = solution.diameterOfBinaryTree(root1);
+        int actual1 = solution.maxDepth(root1);
         System.out.println("Test Case 1: Expected: " + expected1 + ", Actual: " + actual1);
 
         // Test case 2
-        solution.maxDiameter = 0;
-        Integer[] arr2 = {1, 2};
+        Integer[] arr2 = {1, null, 2};
         TreeNode root2 = buildTree(arr2);
-        int expected2 = 1;
-        int actual2 = solution.diameterOfBinaryTree(root2);
+        int expected2 = 2;
+        int actual2 = solution.maxDepth(root2);
         System.out.println("Test Case 2: Expected: " + expected2 + ", Actual: " + actual2);
 
         // Test case 3
-        solution.maxDiameter = 0;
-        Integer[] arr3 = {1, null, 2, null, 3, null, 4};
+        Integer[] arr3 = {1};
         TreeNode root3 = buildTree(arr3);
-        int expected3 = 3;
-        int actual3 = solution.diameterOfBinaryTree(root3);
+        int expected3 = 1;
+        int actual3 = solution.maxDepth(root3);
         System.out.println("Test Case 3: Expected: " + expected3 + ", Actual: " + actual3);
     }
 }
