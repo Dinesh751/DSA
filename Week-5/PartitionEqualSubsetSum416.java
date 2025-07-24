@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class PartitionEqualSubsetSum {
+public class PartitionEqualSubsetSum416 {
     /*
     Problem Statement:
     Given an integer array nums, return true if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or false otherwise.
@@ -49,7 +49,7 @@ public class PartitionEqualSubsetSum {
     }
 
     public static void main(String[] args) {
-        PartitionEqualSubsetSum solution = new PartitionEqualSubsetSum();
+        PartitionEqualSubsetSum416 solution = new PartitionEqualSubsetSum416();
 
         // Test case 1
         int[] nums1 = {1, 5, 11, 5};
